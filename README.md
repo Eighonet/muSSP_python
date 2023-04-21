@@ -2,10 +2,13 @@
 
 Provided code allows one to construct a proper graph for [the muSSP implementation of min-cost flow multi-object tracking](https://github.com/yu-lab-vt/muSSP) and infer trajectories of detected objects (see `test.py` for usage details).
 
+In case if you faced an issue with the muSPP permissions, execute `chmod +x ./muSSP/muSSP/muSSP`.
+
 ### Dependencies
 
 ```
-networkx==2.6.3
+networkx>=2.6.3
+numpy>=1.21.5
 ```
 ### Input 
 The input of the muSSP wrapper is a **list of detections' centroids per each frame** (*dim*: number of frames $\times$ number of detections $\times$ 2) + **list of corresponding detection confidences** (*dim*: number of frames $\times$ number of detections).
