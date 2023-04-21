@@ -13,7 +13,7 @@ def save_edge_list(edge_list: list, node_dict: dict) -> None:
     :return None
     """
 
-    with open(os.path.dirname(__file__) + 'edge_list.txt', 'w') as f:
+    with open(os.path.dirname(__file__) + '/edge_list.txt', 'w') as f:
         f.write(f'p min {2 * len(node_dict) + 2} {len(edge_list)}\n')
         f.write(f'c min-cost flow problem with {2 * len(node_dict) + 2} nodes and {len(edge_list)} arcs\n')
         f.write('n 1          0\n')
@@ -24,6 +24,8 @@ def save_edge_list(edge_list: list, node_dict: dict) -> None:
         f.write('c arc has <tail> <head> <cost>\n')
         for edge in edge_list:
             f.write(f'a {edge[0]} {edge[1]} {edge[2]}\n')
+
+    print(f'The edge list was saved to {os.path.dirname(__file__) + "/edge_list.txt"}')
 
 
 def get_edge_list(tracking_data: list, confidences: list,
@@ -59,7 +61,7 @@ def get_edge_list(tracking_data: list, confidences: list,
         for j, det_1 in enumerate(tracking_data[i]):
             for k, det_2 in enumerate(tracking_data[i + 1]):
                 edge_cost = cost(det_1, det_2)
-                if edge_cost < transition_threshold:
+                if edge_cost > transition_threshold:
                     transition_edges.append([node_dict[upd_index + j]['out'],
                                              node_dict[upd_index + len(tracking_data[i]) + k]['in'], -edge_cost])
         upd_index += len(tracking_data[i])
